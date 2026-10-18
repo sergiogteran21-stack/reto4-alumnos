@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Editar alumno</title>
+</head>
+<body>
+  <h1>Editar alumno</h1>
+  <form action="/actualizar/<%= alumno.id %>" method="POST">
+    <input name="id" value="<%= alumno.id %>" required>
+    <input name="nombre" value="<%= alumno.nombre %>" required>
+    <input name="apellidos" value="<%= alumno.apellidos %>" required>
+    <input name="edad" type="number" value="<%= alumno.edad %>" required>
+    <input name="grado" value="<%= alumno.grado %>" required>
+    <button type="submit">Actualizar</button>
+  </form>
+  <a href="/">Volver al listado</a>
+</body>
+</html>

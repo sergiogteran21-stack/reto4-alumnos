@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Alumnos</title>
+  <style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f4f8;
+    color: #1f2937;
+    padding: 2rem;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  h1 {
+    text-align: center;
+    color: #1e3a8a;
+    margin-bottom: 2rem;
+    font-size: 1.9rem;
+  }
+
+  .card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 1.8rem;
+    margin-bottom: 2rem;
+  }
+
+  .card h2 {
+    color: #1e3a8a;
+    margin-bottom: 1.2rem;
+    font-size: 1.2rem;
+    border-bottom: 2px solid #e5e7eb;
+    padding-bottom: 0.6rem;
+  }
+
+  form {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.8rem;
+    align-items: end;
+  }
+
+  .field label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #4b5563;
+    margin-bottom: 0.3rem;
+  }
+
+  .field input {
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: border-color 0.2s;
+  }
+
+  .field input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  }
+
+  button {
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  button:hover { background: #1d4ed8; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  th {
+    background: #1e3a8a;
+    color: #fff;
+    text-align: left;
+    padding: 0.8rem;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  td {
+    padding: 0.8rem;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 0.95rem;
+  }
+
+  tr:hover { background: #f9fafb; }
+
+  .acciones a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 600;
+    margin-right: 0.8rem;
+  }
+
+  .acciones a.eliminar { color: #dc2626; }
+  .acciones a:hover { text-decoration: underline; }
+</style>
+
+</head>
+<body>
+  <h1>Registro de Alumnos</h1>
+
+  <h2>Crear alumno</h2>
+  <form action="/crear" method="POST">
+    <input name="id" placeholder="Matrícula" required>
+    <input name="nombre" placeholder="Nombre" required>
+    <input name="apellidos" placeholder="Apellidos" required>
+    <input name="edad" type="number" placeholder="Edad" required>
+    <input name="grado" placeholder="Grado" required>
+    <button type="submit">Guardar</button>
+  </form>
+
+  <h2>Lista de alumnos</h2>
+  <table border="1" cellpadding="8">
+    <tr>
+      <th>ID</th><th>Nombre</th><th>Apellidos</th><th>Edad</th><th>Grado</th><th>Acciones</th>
+    </tr>
+    <% alumnos.forEach(a => { %>
+      <tr>
+        <td><%= a.id %></td>
+        <td><%= a.nombre %></td>
+        <td><%= a.apellidos %></td>
+        <td><%= a.edad %></td>
+        <td><%= a.grado %></td>
+        <td>
+  	   <a href="/editar/<%= a.id %>">Editar</a>
+           <form action="/eliminar/<%= a.id %>" method="POST" style="display:inline"
+                 onsubmit="return confirmarEliminar('<%= a.nombre %>');">
+    	   <button type="submit">Eliminar</button>
+           </form>
+        </td>
+      </tr>
+    <% }) %>
+  </table>
+  <script>
+  function confirmarEliminar(nombre) {
+    return confirm('¿Seguro que quieres eliminar a ' + nombre + '?');
+  }
+</script>
+</body>
+</html>
